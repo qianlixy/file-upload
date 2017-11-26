@@ -1,0 +1,69 @@
+doctype html
+html(lang="zh-CN")
+  head
+    meta(charset="UTF-8")
+    title index
+    style.
+      #canvas{background: #ccc;}
+  body
+    input(type="file", id="file")
+    input(placeholder="imgx",class="input",id="imgx",value="0")
+    input(placeholder="imgy",class="input",id="imgy",value="0")
+    input(placeholder="imgw",class="input",id="imgw",value="300")
+    input(placeholder="imgh",class="input",id="imgh",value="300")
+    input(placeholder="canx",class="input",id="canx",value="0")
+    input(placeholder="cany",class="input",id="cany",value="0")
+    input(placeholder="canw",class="input",id="canw",value="300")
+    input(placeholder="canh",class="input",id="canh",value="300")
+    br
+    br
+    a(href="javascript:zoom(1);") 放大 
+    a(href="javascript:zoom(-1);") 缩小 
+    br
+    br
+    canvas(id="canvas", width="300", height="300")
+    
+    script.
+      var input = document.getElementById("file");
+      input.onchange = function(event) {
+        draw(this.files[0]);
+      }
+      var inputs = document.getElementsByClassName("input");
+      for(var i in inputs) {
+        inputs[i].onchange = function() {
+          draw(input.files[0]);
+        }
+      }
+      
+      function draw(file) {
+        var reader = new FileReader();
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext('2d');
+        reader.onload = function() {
+          var img = document.createElement("img");
+          img.src = this.result;
+          img.onload = function() {
+            ctx.fillStyle = "#000";
+            ctx.fillRect(0, 0, 300, 300);
+            ctx.drawImage(this, 
+              document.getElementById("imgx").value,
+              document.getElementById("imgy").value,
+              document.getElementById("imgw").value,
+              document.getElementById("imgh").value,
+              document.getElementById("canx").value,
+              document.getElementById("cany").value,
+              document.getElementById("canw").value,
+              document.getElementById("canh").value
+              );
+          }
+        }
+        reader.readAsDataURL(file);
+      }
+
+      function zoom(type) {
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext('2d');
+        var data = ctx.getImageData(0, 0, 300, 300);
+        ctx.scale(2,2);
+        ctx.putImageData(data, 0, 0)
+      }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>title</title>
+    <style>
+      *{margin: 0;padding: 0;}
+      
+    </style>
+    <link href="../static/css/cropping.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="cropping-box">
+      <div class="img-wrap"><img src="../static/imgs/2.png"></div>
+      <div class="cover-wrap">
+        <div class="cover top"></div>
+        <div class="cover left"></div>
+        <div class="center">
+          <div class="border border-top"></div>
+          <div class="border border-left"></div>
+          <div class="border border-right"></div>
+          <div class="border border-bottom"></div>
+        </div>
+        <div class="cover right"></div>
+        <div class="cover bottom"></div>
+      </div>
+    </div>
+    <div style="text-align: center;"><a href="javascript:;" onclick="$('div.img-wrap img').zoom(0.1);">放大 </a><a href="javascript:;" onclick="$('div.img-wrap img').zoom(-0.1);">缩小</a></div>
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../static/js/jquery.drap.js"></script>
+    <script src="../static/js/jquery.zoom.js"></script>
+    <script>
+      $("div.center").drap({
+          context: $(".cropping-box .img-wrap"),
+          start: function(event) {
+              this.attr("data-top", this.css("top").replace("px", ""));
+              this.attr("data-left", this.css("left").replace("px", ""));
+          },
+          move: function(event) {
+              this.css({
+                  top: parseInt(this.attr("data-top")) + event.top,
+                  left: parseInt(this.attr("data-left")) + event.left
+              });
+          }
+      });
+    </script>
+  </body>
+</html>

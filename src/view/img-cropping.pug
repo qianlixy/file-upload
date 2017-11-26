@@ -1,0 +1,47 @@
+doctype html
+html(lang="zh-CN")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title title
+
+        style.
+            *{margin: 0;padding: 0;}
+            
+        link(href="${relativePath}/static/css/cropping.css",rel="stylesheet")
+    body
+        div.cropping-box
+            div.img-wrap
+                //- span
+                img(src="${relativePath}/static/imgs/2.png")
+            div.cover-wrap
+                div.cover.top
+                div.cover.left
+                div.center
+                    div.border.border-top
+                    div.border.border-left
+                    div.border.border-right
+                    div.border.border-bottom
+                div.cover.right
+                div.cover.bottom
+        div(style="text-align: center;")
+            a(href="javascript:;",onclick="$('div.img-wrap img').zoom(0.1);") 放大 
+            a(href="javascript:;",onclick="$('div.img-wrap img').zoom(-0.1);") 缩小
+
+        script(src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js")
+        script(src="${relativePath}/static/js/jquery.drap.js")
+        script(src="${relativePath}/static/js/jquery.zoom.js")
+        script.
+            $("div.center").drap({
+                context: $(".cropping-box .img-wrap"),
+                start: function(event) {
+                    this.attr("data-top", this.css("top").replace("px", ""));
+                    this.attr("data-left", this.css("left").replace("px", ""));
+                },
+                move: function(event) {
+                    this.css({
+                        top: parseInt(this.attr("data-top")) + event.top,
+                        left: parseInt(this.attr("data-left")) + event.left
+                    });
+                }
+            });

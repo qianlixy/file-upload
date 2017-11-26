@@ -1,0 +1,99 @@
+.cropping-box{
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+.cropping-box .img-wrap{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  text-align: center;
+}
+.cropping-box .img-wrap span{
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.cropping-box .img-wrap img{
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+  cursor: move;
+}
+.cropping-box .cover-wrap{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 5;
+}
+.cropping-box .cover-wrap .cover{
+  background: #000;
+  opacity: 0.3;
+  filter:alpha(opacity=30);
+}
+.cropping-box .cover-wrap .top{
+  width: 100%;
+  height: 15%;
+}
+.cropping-box .cover-wrap .left{
+  width: 15%;
+  height: 70%;
+  float: left;
+}
+.cropping-box .cover-wrap .right{
+  width: 15%;
+  height: 70%;
+  float: right;
+}
+.cropping-box .cover-wrap .bottom{
+  width: 100%;
+  height: 15%;
+  clear: both;
+}
+.cropping-box .cover-wrap .center{
+  width: 70%;
+  height: 70%;
+  float: left;
+  cursor: move;
+  background: url(about:black);
+}
+.cropping-box .cover-wrap .center .border{
+    border-color: #337ab7;
+    border-style: dashed;
+    border-width: 0;
+}
+.cropping-box .cover-wrap .center .border-top{
+  width: 100%;
+  height: 0;
+  border-top-width: 1px;
+}
+.cropping-box .cover-wrap .center .border-left{
+  width: 0;
+  height: 100%;
+  border-left-width: 1px;
+  float: left;
+  position: relative;
+  top: -1px;
+}
+.cropping-box .cover-wrap .center .border-right{
+  width: 0;
+  height: 100%;
+  border-left-width: 1px;
+  float: right;
+  position: relative;
+  top: -1px;
+}
+.cropping-box .cover-wrap .center .border-bottom{
+  width: 100%;
+  height: 0;
+  border-top-width: 1px;
+  position: relative;
+  top: -2px;
+  clear: both;
+}
