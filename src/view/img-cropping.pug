@@ -13,7 +13,7 @@ html(lang="zh-CN")
         div.cropping-box
             div.img-wrap
                 span
-                img(src="${relativePath}/static/imgs/111111.png")
+                img(src="${relativePath}/static/imgs/2.png")
             div.cover-wrap
                 div.cover.top
                 div.cover.left
@@ -27,10 +27,12 @@ html(lang="zh-CN")
 
         script(src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js")
         script(src="${relativePath}/static/js/jquery.mousewheel.min.js")
+        script(src="${relativePath}/static/js/jquery.intcss.js")
         script(src="${relativePath}/static/js/jquery.drap.js")
         script(src="${relativePath}/static/js/jquery.zoom.js")
         script.
             $(function() {
+                $(".cropping-box").on("selectstart", function() {return false;});
                 var img = $('div.img-wrap img');
                 img.css({
                     position:"absolute",
@@ -43,8 +45,8 @@ html(lang="zh-CN")
             $("div.center").drap({
                 context: $(".cropping-box .img-wrap"),
                 start: function(event) {
-                    this.attr("data-top", this.css("top").replace("px", ""));
-                    this.attr("data-left", this.css("left").replace("px", ""));
+                    this.attr("data-top", this.intCss("top"));
+                    this.attr("data-left", this.intCss("left"));
                 },
                 move: function(event) {
                     this.css({

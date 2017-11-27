@@ -18,11 +18,10 @@
                 opts.start.call(opts.context, result);
             }).on("mousemove", function(e) {
                 if(!isDrap) {return false;}
-                if(e.offsetX <= 0 || e.offsetY <= 0) {isDrap=false;}
                 result.top = e.offsetY - result.pointY;
                 result.left = e.offsetX - result.pointX;
                 opts.move.call(opts.context, result);
-            }).on("mouseup", function(e) {
+            }).on("mouseup mouseout", function(e) {
                 isDrap = false;
             });
         });

@@ -1,9 +1,4 @@
 ;(function($) {
-
-    $.fn.intCss = function(name) {
-        return parseInt($(this).css(name).replace("px", ""));
-    }
-
     $.fn.zoom = function(settings) {
         var opts = $.extend({scale:0, speed:300},
             ("object" === typeof settings) ? settings :
