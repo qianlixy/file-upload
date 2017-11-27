@@ -1,21 +1,28 @@
 ;(function($) {
-    $.fn.zoom = function(scale) {
+
+    $.fn.intCss = function(name) {
+        return parseInt($(this).css(name).replace("px", ""));
+    }
+
+    $.fn.zoom = function(settings) {
+        var opts = $.extend({scale:0, speed:300},
+            ("object" === typeof settings) ? settings :
+            {scale : parseFloat(settings)});
         return this.each(function() {
             var $this = $(this),
-                width = $this.css("width").replace("px", ""),
-                height = $this.css("height").replace("px", ""),
-                ratio = width / height;
-
-            scale = parseFloat(scale) || 0;
-
-            width = width * (1 + scale);
-            //height = height * (1 + scale);
+                top = $this.intCss("top"),
+                left = $this.intCss("left"),
+                width = $this.intCss("width"),
+                height = $this.intCss("height"),
+                ratio = height / width,
+                incr = opts.scale * opts.speed
 
             $this.css({
-                width: width + "px",
-                //height: height + "px",
+                width: width + incr,
                 maxWidth: "none",
-                maxHeight: "none"
+                maxHeight: "none",
+                top: top - incr / 2,
+                left: left - incr / 2 * ratio
             });
         });
     }

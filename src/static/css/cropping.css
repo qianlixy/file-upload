@@ -12,6 +12,7 @@
   top: 0;
   left: 0;
   text-align: center;
+  line-height: 500px;
 }
 .cropping-box .img-wrap span{
   height: 100%;
@@ -23,6 +24,13 @@
   max-height: 100%;
   vertical-align: middle;
   cursor: move;
+}
+.cropping-box .img-wrap img.fixed{
+    position: absolute;
+    top: 50%;
+    margin-top: -175px;
+    left: 50%;
+    margin-left: -175px;
 }
 .cropping-box .cover-wrap{
   top: 0;

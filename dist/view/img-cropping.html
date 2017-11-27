@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="cropping-box">
-      <div class="img-wrap"><img src="../static/imgs/2.png"></div>
+      <div class="img-wrap"><img class="fixed" src="../static/imgs/2.png"></div>
       <div class="cover-wrap">
         <div class="cover top"></div>
         <div class="cover left"></div>
@@ -28,6 +28,7 @@
     </div>
     <div style="text-align: center;"><a href="javascript:;" onclick="$('div.img-wrap img').zoom(0.1);">放大 </a><a href="javascript:;" onclick="$('div.img-wrap img').zoom(-0.1);">缩小</a></div>
     <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../static/js/jquery.mousewheel.min.js"></script>
     <script src="../static/js/jquery.drap.js"></script>
     <script src="../static/js/jquery.zoom.js"></script>
     <script>
@@ -42,6 +43,12 @@
                   top: parseInt(this.attr("data-top")) + event.top,
                   left: parseInt(this.attr("data-left")) + event.left
               });
+          }
+      }).mousewheel(function(event, delta) {
+          if(delta > 0) {
+              $('div.img-wrap img').zoom(0.1);
+          } else {
+              $('div.img-wrap img').zoom(-0.1);
           }
       });
     </script>
