@@ -12,8 +12,8 @@ html(lang="zh-CN")
     body
         div.cropping-box
             div.img-wrap
-                //- span
-                img.fixed(src="${relativePath}/static/imgs/2.png")
+                span
+                img(src="${relativePath}/static/imgs/111111.png")
             div.cover-wrap
                 div.cover.top
                 div.cover.left
@@ -24,15 +24,22 @@ html(lang="zh-CN")
                     div.border.border-bottom
                 div.cover.right
                 div.cover.bottom
-        div(style="text-align: center;")
-            a(href="javascript:;",onclick="$('div.img-wrap img').zoom(0.1);") 放大 
-            a(href="javascript:;",onclick="$('div.img-wrap img').zoom(-0.1);") 缩小
 
         script(src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js")
         script(src="${relativePath}/static/js/jquery.mousewheel.min.js")
         script(src="${relativePath}/static/js/jquery.drap.js")
         script(src="${relativePath}/static/js/jquery.zoom.js")
         script.
+            $(function() {
+                var img = $('div.img-wrap img');
+                img.css({
+                    position:"absolute",
+                    top:"50%",
+                    left:"50%",
+                    marginTop:-img.intCss("height")/2,
+                    marginLeft:-img.intCss("width")/2
+                }).prev().remove();
+            });
             $("div.center").drap({
                 context: $(".cropping-box .img-wrap"),
                 start: function(event) {

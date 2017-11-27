@@ -18,6 +18,7 @@
                 incr = opts.scale * opts.speed
 
             $this.css({
+                position: "absolute",
                 width: width + incr,
                 maxWidth: "none",
                 maxHeight: "none",
