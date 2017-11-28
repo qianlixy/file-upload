@@ -34,8 +34,8 @@
 }
 .cropping-box .cover-wrap .cover{
   background: #000;
-  opacity: 0.3;
-  filter:alpha(opacity=30);
+  opacity: 0.4;
+  filter:alpha(opacity=40);
 }
 .cropping-box .cover-wrap .top{
   width: 100%;
