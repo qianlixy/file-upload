@@ -31,6 +31,9 @@
                 top: $this.data("top") - parseInt(incr / 2 * $this.data("ratio")),
                 left: $this.data("left") - incr / 2
             });
+
+            $this.attr("width", $this.intCss("width"))
+                .attr("height", $this.intCss("height"));
         });
     }
 })(jQuery);

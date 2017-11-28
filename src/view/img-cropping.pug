@@ -7,13 +7,15 @@ html(lang="zh-CN")
 
         style.
             *{margin: 0;padding: 0;}
+            .cropping-btn-warp{text-align: center;}
+            .cropping-btn-warp canvas{border: 1px solid #ccc;}
             
         link(href="${relativePath}/static/css/cropping.css",rel="stylesheet")
     body
         div.cropping-box
             div.img-wrap
                 span
-                img(src="${relativePath}/static/imgs/2.png")
+                img(src="${relativePath}/static/imgs/1.png")
             div.cover-wrap
                 div.cover.top
                 div.cover.left
@@ -24,6 +26,10 @@ html(lang="zh-CN")
                     div.border.border-bottom
                 div.cover.right
                 div.cover.bottom
+        div.cropping-btn-warp
+            a(href="javascript:;" onclick="cropping()") 裁剪
+            br
+            canvas(id="canvas",width="350",height="350")
 
         script(src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js")
         script(src="${relativePath}/static/js/jquery.mousewheel.min.js")
@@ -42,6 +48,7 @@ html(lang="zh-CN")
                     marginLeft:-img.intCss("width")/2
                 }).prev().remove();
             });
+            
             $("div.center").drap({
                 context: $(".cropping-box .img-wrap"),
                 start: function(event) {
@@ -61,3 +68,19 @@ html(lang="zh-CN")
                     $('div.img-wrap img').zoom(-0.1);
                 }
             });
+            
+            function cropping() {
+                var img = $("div.img-wrap img");
+                var imgTop = img.intCss("top") + img.intCss("marginTop") + (img.parent().intCss("top") || 0);
+                var imgLeft = img.intCss("left") + img.intCss("marginLeft") + (img.parent().intCss("left") || 0);
+                var winTop = $("div.cover.top").intCss("height");
+                var winLeft = $("div.cover.left").intCss("width");
+                var imgX = winLeft - imgLeft;
+                var imgY = winTop - imgTop;
+                var canvas = document.getElementById("canvas");
+                var ctx = canvas.getContext("2d");
+                ctx.fillStyle = "#000";
+                ctx.fillRect(0, 0, 350, 350);
+                ctx.drawImage(img[0], imgX, imgY, 350, 350, 0, 0, 350, 350);
+                 
+            }
