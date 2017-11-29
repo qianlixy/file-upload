@@ -15,7 +15,7 @@ html(lang="zh-CN")
         div.cropping-box
             div.img-wrap
                 span
-                img(src="${relativePath}/static/imgs/1.png")
+                img(src="${relativePath}/static/imgs/2.png")
             div.cover-wrap
                 div.cover.top
                 div.cover.left
@@ -81,6 +81,6 @@ html(lang="zh-CN")
                 var ctx = canvas.getContext("2d");
                 ctx.fillStyle = "#000";
                 ctx.fillRect(0, 0, 350, 350);
-                ctx.drawImage(img[0], imgX, imgY, 350, 350, 0, 0, 350, 350);
+                ctx.drawImage(img[0], imgX, imgY, 350 - imgX, 350 - imgY, 0, 0, 350 + imgX, 350 + imgX);
                  
             }

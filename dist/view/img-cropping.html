@@ -14,7 +14,7 @@
   </head>
   <body>
     <div class="cropping-box">
-      <div class="img-wrap"><span></span><img src="../static/imgs/1.png"></div>
+      <div class="img-wrap"><span></span><img src="../static/imgs/2.png"></div>
       <div class="cover-wrap">
         <div class="cover top"></div>
         <div class="cover left"></div>
@@ -81,7 +81,7 @@
           var ctx = canvas.getContext("2d");
           ctx.fillStyle = "#000";
           ctx.fillRect(0, 0, 350, 350);
-          ctx.drawImage(img[0], imgX, imgY, 350, 350, 0, 0, 350, 350);
+          ctx.drawImage(img[0], imgX, imgY, 350 - imgX, 350 - imgY, 0, 0, 350 + imgX, 350 + imgX);
            
       }
     </script>
