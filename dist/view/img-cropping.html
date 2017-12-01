@@ -28,28 +28,46 @@
         <div class="cover bottom"></div>
       </div>
     </div>
-    <div class="cropping-btn-warp"><a href="javascript:;" onclick="cropping()">裁剪</a><br>
+    <div class="cropping-btn-warp">
+      <input id="file" type="file"><a href="javascript:;" onclick="cropping()">裁剪</a><br>
       <canvas id="canvas" width="350" height="350"></canvas>
     </div>
     <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="../static/js/jquery.mousewheel.min.js"></script>
     <script src="../static/js/jquery.intcss.js"></script>
-    <script src="../static/js/jquery.drap.js"></script>
+    <script src="../static/js/jquery.drag.js"></script>
     <script src="../static/js/jquery.zoom.js"></script>
     <script>
       $(function() {
           $(".cropping-box").on("selectstart", function() {return false;});
           var img = $('div.img-wrap img');
-          img.css({
-              position:"absolute",
-              top:"50%",
-              left:"50%",
-              marginTop:-img.intCss("height")/2,
-              marginLeft:-img.intCss("width")/2
-          }).prev().remove();
+          img.on("load", function() {
+              // FIXME 计算图片宽高位置
+              $(this).removeAttr("width")
+                  .removeAttr("height")
+                  .removeAttr("style")
+                  .css({
+                  position:"absolute",
+                  top:"50%",
+                  left:"50%",
+                  marginTop:-img.intCss("height")/2,
+                  marginLeft:-img.intCss("width")/2,
+                  background: "#ccc"
+              }).zoom(0, true).parent().removeAttr("style");
+          }).load().prev().remove();
+          
+          $("#file").change(function() {
+              var file = this.files[0];
+              var fr = new FileReader();
+              fr.readAsDataURL(file);
+              fr.onload = function() {
+                  img[0].src = this.result;
+              }
+              
+          });
       });
       
-      $("div.center").drap({
+      $("div.center").drag({
           context: $(".cropping-box .img-wrap"),
           start: function(event) {
               this.attr("data-top", this.intCss("top"));
@@ -67,6 +85,7 @@
           } else {
               $('div.img-wrap img').zoom(-0.1);
           }
+          return false;
       });
       
       function cropping() {
@@ -85,21 +104,33 @@
           ctx.fillRect(0, 0, 350, 350);
           
           var size = {
-              imgX: imgH <= 350 ? 0 : 0, 
-              imgY: imgW <= 350 ? 0 : 0, 
-              imgW: imgW <= 350 ? 480 : 0,
-              imgH: imgH <= 350 ? 290 : 0,
-              canvasX: imgH <= 350 ? -imgX : 0,
-              canvasY: imgW <= 350 ? -imgY : 0,
-              canvasW: 280, 
-              canvasH: 170
+              initW: imgW,
+              initH: imgH,
+              x: imgX,
+              y: imgY,
+              w: 350,
+              h: 350,
+              finalW: 350,
+              finalH: 350
           };
               
           console.log(size);
           
-          ctx.drawImage(img[0], 
+          canvas.width = size.initW;
+          canvas.height = size.initH;
+          
+          ctx.drawImage(img[0], 0, 0, size.initW, size.initH);
+          var imgData = ctx.getImageData(size.x, size.y, size.w, size.h);
+          
+          canvas.width = 350;
+          canvas.height = 350;
+          
+          
+          ctx.putImageData(imgData, 0, 0);
+          
+          /*ctx.drawImage(img[0], 
               size.imgX, size.imgY, size.imgW, size.imgH,
-              size.canvasX, size.canvasY, size.canvasW, size.canvasH);
+              size.canvasX, size.canvasY, size.canvasW, size.canvasH);*/
            
       }
     </script>

@@ -1,39 +1,35 @@
 ;(function($) {
-    $.fn.zoom = function(settings) {
-        var opts = $.extend({scale:0, speed:300}, ("object" === typeof settings) ? settings : {scale : parseFloat(settings)});
+    $.fn.zoom = function(_scale, isClear) {
         return this.each(function() {
             var $this = $(this);
-
-            if(!$this.data("width")) {
-                var width = $this.intCss("width"),
-                    height = $this.intCss("height"),
-                    ratio = height / width;
-                $this.data("width", width)
-                    .data("height", height)
-                    .data("ratio", height / width)
-                    .data("top", $this.intCss("top"))
-                    .data("left", $this.intCss("left"))
-                    .data("scale", opts.scale);
-            } else {
-                // if($this.intCss("width") <= 0 && opts.scale < 0) {
-                //     return;
-                // }
-                $this.data("scale", $this.data("scale") + opts.scale);
+            if(($this.intCss("width") <=0  || $this.intCss("height") <= 0) && _scale < 0) {
+                return ;
             }
 
-            var incr = $this.data("scale") * opts.speed;
+            if(!$this.attr("data-width") || isClear) {
+                $this.attr("data-width", $this.intCss("width"));
+                $this.attr("data-height", $this.intCss("height"));
+                $this.attr("data-top", $this.intCss("top"));
+                $this.attr("data-left", $this.intCss("left"));
+                $this.attr("data-scale", 1);
+            }
+            var scale = Number($this.attr("data-scale")) + _scale;
+            $this.attr("data-scale", scale.toFixed(2));
+
+            var width = $this.attr("data-width");
+            var height = $this.attr("data-height");
+
+            var ratio = height / width;
+            var incr = width * scale - width;
 
             $this.css({
                 position: "absolute",
-                width: $this.data("width") + incr,
+                width: width * scale,
                 maxWidth: "none",
                 maxHeight: "none",
-                top: $this.data("top") - parseInt(incr / 2 * $this.data("ratio")),
-                left: $this.data("left") - incr / 2
+                top: $this.attr("data-top") - parseInt(incr / 2 * ratio),
+                left: $this.attr("data-left") - incr / 2
             });
-
-            $this.attr("width", $this.intCss("width"))
-                .attr("height", $this.intCss("width") * ratio);
         });
     };
 })(jQuery);
