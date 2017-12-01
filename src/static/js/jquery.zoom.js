@@ -33,7 +33,7 @@
             });
 
             $this.attr("width", $this.intCss("width"))
-                .attr("height", $this.intCss("width"));
+                .attr("height", $this.intCss("width") * ratio);
         });
     };
 })(jQuery);

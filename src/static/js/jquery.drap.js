@@ -2,7 +2,7 @@
     var DEFAULT = {
         start: function(event) {},
         move: function(event) {}
-    }
+    };
     $.fn.drap = function(settings) {
         return this.each(function() {
             var $this = $(this),
@@ -25,5 +25,5 @@
                 isDrap = false;
             });
         });
-    }
+    };
 })(jQuery);

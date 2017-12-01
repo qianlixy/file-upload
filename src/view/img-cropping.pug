@@ -15,7 +15,7 @@ html(lang="zh-CN")
         div.cropping-box
             div.img-wrap
                 span
-                img(src="${relativePath}/static/imgs/2.png")
+                img(src="${relativePath}/static/imgs/5d4bfeea23f8de065152631aea1a3a20.png")
             div.cover-wrap
                 div.cover.top
                 div.cover.left
@@ -71,6 +71,8 @@ html(lang="zh-CN")
             
             function cropping() {
                 var img = $("div.img-wrap img");
+                var imgW = img[0].width;
+                var imgH = img[0].height;
                 var imgTop = img.intCss("top") + img.intCss("marginTop") + (img.parent().intCss("top") || 0);
                 var imgLeft = img.intCss("left") + img.intCss("marginLeft") + (img.parent().intCss("left") || 0);
                 var winTop = $("div.cover.top").intCss("height");
@@ -79,8 +81,24 @@ html(lang="zh-CN")
                 var imgY = winTop - imgTop;
                 var canvas = document.getElementById("canvas");
                 var ctx = canvas.getContext("2d");
-                ctx.fillStyle = "#000";
+                ctx.fillStyle = "#fff";
                 ctx.fillRect(0, 0, 350, 350);
-                ctx.drawImage(img[0], imgX, imgY, 350 - imgX, 350 - imgY, 0, 0, 350 + imgX, 350 + imgX);
+                
+                var size = {
+                    imgX: imgH <= 350 ? 0 : 0, 
+                    imgY: imgW <= 350 ? 0 : 0, 
+                    imgW: imgW <= 350 ? 480 : 0,
+                    imgH: imgH <= 350 ? 290 : 0,
+                    canvasX: imgH <= 350 ? -imgX : 0,
+                    canvasY: imgW <= 350 ? -imgY : 0,
+                    canvasW: 280, 
+                    canvasH: 170
+                };
+                    
+                console.log(size);
+                
+                ctx.drawImage(img[0], 
+                    size.imgX, size.imgY, size.imgW, size.imgH,
+                    size.canvasX, size.canvasY, size.canvasW, size.canvasH);
                  
             }
