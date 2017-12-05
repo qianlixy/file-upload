@@ -1,7 +1,15 @@
 !(function($) {
 
+    function getImgActualSize(_img, callback) {
+        var img = new Image();
+        img.src = _img.src;
+        img.onload = function() {
+            callback(this.width, this.height);
+        }
+    }
+
     function uniqueId() {
-        return new Date().getTime() + "-" + parseInt(Math.random() * 10000);
+        return "cropping-" + new Date().getTime() + "-" + parseInt(Math.random() * 10000);
     }
 
     var boxTpl =
@@ -18,6 +26,14 @@
                 '</div>' +
                 '<div class="cover right"></div>' +
                 '<div class="cover bottom"></div>' +
+            '</div>' +
+            '<div class="menu">' +
+                '<div class="icon iconfont" title="自适应">&#xf004a;</div>' +
+                '<div class="icon iconfont" title="放大">&#xf002a;</div>' +
+                '<div class="icon iconfont" title="缩小">&#xf002b;</div>' +
+                '<div class="icon iconfont" title="还原">&#xf0009;</div>' +
+                '<div class="icon iconfont" title="裁剪">&#xf006b;</div>' +
+                '<div class="icon iconfont" title="上传">&#xf0048;</div>' +
             '</div>' +
         '</div>';
 
@@ -62,6 +78,7 @@
             this._initSize(opts.width, opts.height);
             this._opts = opts;
             this._box.data("croppingOpts", opts);
+            this._showOperateMenu();
             return this;
         },
         setFileElement:function(file) {
@@ -83,23 +100,40 @@
             }
             return this;
         },
-        showOkBtn:function() {},
-        showCancelBtn:function() {},
-        showOperateMenu:function(callback) {},
         show:function() {
             this._box.show();
         },
+        _showCloseBtn:function() {
+
+        },
+        _showOkBtn:function() {
+
+        },
+        _showCancelBtn:function() {},
+        _showOperateMenu:function(callback) {
+            var _this = this;
+            var menu = this._box.find(".menu");
+            menu.on("mouseenter", function() {
+                menu.find(".icon").fadeIn(100);
+            }).on("mouseleave", function() {
+                menu.find(".icon").fadeOut(100);
+            });
+            menu.find(".icon:eq(0)").on("click", function() {
+                var img = _this._getImg();
+                var center = _this._box.find(".center");
+                img.css({
+                    "maxWidth": center.intCss("width"),
+                    "maxHeight": center.intCss("height")
+                });
+            });
+        },
         _initImg:function(imgUrl) {
-            var img = this._box.find(".img-wrap img");
-            img.removeAttr("width")
-                .removeAttr("height")
-                .removeAttr("style")
-                .hide();
+            var img = this._getImg();
+            img.removeAttr("width").removeAttr("height").removeAttr("style").hide();
             img.attr("src", imgUrl).load(function() {
-                console.log(this.innerWidth);
-                console.log(this.innerHeight);
-                img.attr("data-initW", this.width)
-                .attr("data-initH", this.height);
+                getImgActualSize(this, function(width, height) {
+                    img.attr("data-initW", width).attr("data-initH", height);
+                });
 
                 img.css({maxWidth: "100%",maxHeight: "100%"})
                 .css({position:"absolute",
@@ -122,6 +156,9 @@
                 this._box.find(".cover.left,.cover.right").css({"width": (boxW - _width) / 2, height: _height});
                 this._box.find(".center").css({width:_width, height:_height});
             }
+        },
+        _getImg() {
+            return this._box.find(".img-wrap img")
         }
     }
 
@@ -131,7 +168,7 @@
             var $this = $(this);
             var fileId = $this.attr("id");
             if(!fileId) {
-                this.id = fileId = "cropping-" + uniqueId();
+                this.id = fileId = uniqueId();
             }
 
             croppingBox.create(opts, fileId);

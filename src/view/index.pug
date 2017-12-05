@@ -5,7 +5,7 @@ html(lang="zh-CN")
         title index
         link(href="../static/css/cropping.css",rel="stylesheet")
     body
-        input(type="file", id="file")
+        input(type="file")
 
         script(src="../static/js/jquery-1.11.3.min.js")
         script(src="../static/js/jquery.intcss.js")
@@ -14,4 +14,4 @@ html(lang="zh-CN")
         script(src="../static/js/jquery.mousewheel.min.js")
         script(src="../static/js/jquery.cropping.js")
         script.
-            $("#file").cropping();
+            $("input").cropping();

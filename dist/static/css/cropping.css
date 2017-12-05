@@ -39,8 +39,8 @@
 }
 .cropping-box .cover-wrap .cover{
   background: #000;
-  opacity: 0.4;
-  filter:alpha(opacity=40);
+  opacity: 0.5;
+  filter:alpha(opacity=50);
 }
 .cropping-box .cover-wrap .top{
   width: 100%;
@@ -69,7 +69,7 @@
   background: url(about:black);
 }
 .cropping-box .cover-wrap .center .border{
-    border-color: #795548;
+    border-color: #fff;
     border-style: dashed;
     border-width: 0;
 }
@@ -103,24 +103,25 @@
   clear: both;
 }
 .cropping-box .menu{
-    width: 10%;
+    width: 60px;
     height: 70%;
     position: absolute;
     top: 15%;
     right: 2.5%;
-    background: #ccc;
     z-index: 2;
 }
 .cropping-box .menu .icon{
+    display: none;
     width: 100%;
     font-size: 26px;
     text-align: center;
     cursor: pointer;
     padding: 10px 0;
-    color: #795548;
+    color: #fff;
 }
 .cropping-box .menu .icon:hover{
-    background: #aaa;
+    border-left: 2px solid #fff;
+    margin-left: -2px;
 }
 @font-face {
     font-family: 'iconfont';
