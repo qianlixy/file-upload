@@ -1,5 +1,9 @@
 !(function($) {
 
+    function uniqueId() {
+        return new Date().getTime() + "-" + parseInt(Math.random() * 10000);
+    }
+
     var boxTpl =
         '<div class="cropping-box">' +
             '<div class="img-wrap"><img></div>' +
@@ -24,15 +28,17 @@
     }
 
     var croppingBox = {
-        setOpts:function(opts) {
-            if(this._opts && this._opts == opts) {
-                return;
+        get:function(fileId) {
+            var box = $("div.cropping-box[htmlfor=" + fileId + "]");
+            if(box.length) {
+                this._box = box;
+                this._opts = box.data("croppingOpts");
+                return this;
             }
-            this._opts = opts;
-            return this;
+            return null;
         },
-        create:function(_width, _height) {
-            this._box = $(boxTpl).hide().prependTo("body");
+        create:function(opts, fileId) {
+            this._box = $(boxTpl).hide().attr("htmlfor", fileId).prependTo("body");
             this._box.find(".center").drag({
                 context: this._box.find(".img-wrap"),
                 start: function(event) {
@@ -53,7 +59,9 @@
                 }
                 return false;
             }).on("selectstart", function() {return false;});
-            this._initSize(_width, _height);
+            this._initSize(opts.width, opts.height);
+            this._opts = opts;
+            this._box.data("croppingOpts", opts);
             return this;
         },
         setFileElement:function(file) {
@@ -82,7 +90,11 @@
             this._box.show();
         },
         _initImg:function(imgUrl) {
-            var img = this._box.find(".img-wrap img").hide();
+            var img = this._box.find(".img-wrap img");
+            img.removeAttr("width")
+                .removeAttr("height")
+                .removeAttr("style")
+                .hide();
             img.attr("src", imgUrl).load(function() {
                 img.attr("data-initW", this.width)
                 .attr("data-initH", this.height)
@@ -92,7 +104,11 @@
                     left:"50%",
                     marginTop:-img.intCss("height")/2,
                     marginLeft:-img.intCss("width")/2})
-                .show();
+                .show()
+                .parent().removeAttr("style");
+                if(img.is("[data-scale]")) {
+                    img.zoom(0, true);
+                }
             });
         },
         _initSize:function(_width, _height) {
@@ -109,16 +125,16 @@
     $.fn.cropping = function(settings) {
         var opts = $.extend({}, DEFAULT, settings);
         return this.each(function() {
-
             var $this = $(this);
+            var fileId = $this.attr("id");
+            if(!fileId) {
+                this.id = fileId = "cropping-" + uniqueId();
+            }
 
+            croppingBox.create(opts, fileId);
             $this.on("change", function() {
-                croppingBox.setOpts(opts)
-                    .create(opts.width, opts.height)
-                    .setFileElement(this)
-                    .show();
+                croppingBox.get(fileId).setFileElement(this).show();
             });
-
         });
     }
 
