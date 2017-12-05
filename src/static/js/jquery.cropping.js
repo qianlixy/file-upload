@@ -96,9 +96,12 @@
                 .removeAttr("style")
                 .hide();
             img.attr("src", imgUrl).load(function() {
+                console.log(this.innerWidth);
+                console.log(this.innerHeight);
                 img.attr("data-initW", this.width)
-                .attr("data-initH", this.height)
-                .css({maxWidth: "100%",maxHeight: "100%"})
+                .attr("data-initH", this.height);
+
+                img.css({maxWidth: "100%",maxHeight: "100%"})
                 .css({position:"absolute",
                     top:"50%",
                     left:"50%",
