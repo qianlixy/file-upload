@@ -123,7 +123,8 @@
                 var center = _this._box.find(".center");
                 img.css({
                     "maxWidth": center.intCss("width"),
-                    "maxHeight": center.intCss("height")
+                    "maxHeight": center.intCss("height"),
+
                 });
             });
         },

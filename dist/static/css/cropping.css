@@ -12,6 +12,49 @@
     margin-left: -400px;
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC');
 }
+.cropping-box .header{
+    width: 100%;
+    height: 10%;
+    position: relative;
+    z-index: 3;
+    /*background: #fff;*/
+}
+.cropping-box .header .win-btns{
+    width: 30%;
+    height: 100%;
+    float: right;
+    /*background: red;*/
+}
+.cropping-box .header .win-btns .btn{
+    width: 60px;
+    height: 100%;
+    float: right;
+    cursor: pointer;
+    font-size: 40px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    /*background: #ccc;*/
+}
+.cropping-box .header .win-btns .btn::before{
+    content: '';
+    display: block;
+    height: 5px;
+}
+.cropping-box .header .win-btns .btn:hover{
+    background: #ccc;
+}
+.cropping-box .header .win-btns .btn.max{
+    display: none;
+}
+.cropping-box .header .win-btns .btn.restore{
+    display: none;
+}
+.cropping-box .header .win-btns .btn.close{
+}
+.cropping-box .header .win-btns .btn.close:hover{
+    background: red;
+}
 .cropping-box .img-wrap{
   width: 100%;
   height: 100%;

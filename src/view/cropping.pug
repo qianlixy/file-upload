@@ -1,0 +1,49 @@
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        title cropping
+        link(href="../static/css/cropping.css", rel="stylesheet")
+    body
+        
+        button#cropping-btn 调用裁剪框
+        
+        script(id="cropping-tpl", type="text/html")
+            div.cropping-box
+                div.header
+                    div.win-btns
+                        div.btn.close.iconfont &#xf0096;
+                        div.btn.max
+                        div.btn.restore
+                div.img-wrap
+                    img
+                div.cover-wrap
+                    div.cover.top
+                    div.cover.left
+                    div.center
+                        div.border.border-top
+                        div.border.border-left
+                        div.border.border-right
+                        div.border.border-bottom
+                    div.cover.right
+                    div.cover.bottom
+                div.menu
+                    div.icon.iconfont(title="自适应") &#xf004a;
+                    div.icon.iconfont(title="放大") &#xf002a;
+                    div.icon.iconfont(title="缩小") &#xf002b;
+                    div.icon.iconfont(title="还原") &#xf0009;
+                    div.icon.iconfont(title="裁剪") &#xf006b;
+                    div.icon.iconfont(title="上传") &#xf0048;
+        
+        script(src="../static/js/jquery-1.11.3.min.js")
+        script(src="../static/js/jquery.intcss.js")
+        script(src="../static/js/jquery.drag.js")
+        script(src="../static/js/jquery.zoom.js")
+        script(src="../static/js/jquery.mousewheel.min.js")
+        script(src="../static/js/jquery.cropping-1.0.0.js")
+        
+        script.
+            $.cropping();
+            $("#cropping-btn").click(function() {
+                $.cropping();
+            });
