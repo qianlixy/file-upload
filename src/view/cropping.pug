@@ -12,7 +12,7 @@ html
             div.cropping-box
                 div.header
                     div.win-btns
-                        div.btn.close.iconfont &#xf0096;
+                        div.btn.close.iconfont(title="关闭") &#xf0096;
                         div.btn.max
                         div.btn.restore
                 div.img-wrap
@@ -34,7 +34,10 @@ html
                     div.icon.iconfont(title="还原") &#xf0009;
                     div.icon.iconfont(title="裁剪") &#xf006b;
                     div.icon.iconfont(title="上传") &#xf0048;
-        
+                div.footer
+                    button.btn 裁剪
+                    button.btn.select 选择
+                    input(type="file", style="display:none;")
         script(src="../static/js/jquery-1.11.3.min.js")
         script(src="../static/js/jquery.intcss.js")
         script(src="../static/js/jquery.drag.js")
@@ -43,7 +46,6 @@ html
         script(src="../static/js/jquery.cropping-1.0.0.js")
         
         script.
-            $.cropping();
             $("#cropping-btn").click(function() {
-                $.cropping();
+                $.cropping({width: 800, height: 800});
             });

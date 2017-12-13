@@ -11,7 +11,7 @@
       <div class="cropping-box">
         <div class="header">
           <div class="win-btns">
-            <div class="btn close iconfont">&#xf0096;</div>
+            <div class="btn close iconfont" title="关闭">&#xf0096;</div>
             <div class="btn max"></div>
             <div class="btn restore"></div>
           </div>
@@ -37,6 +37,11 @@
           <div class="icon iconfont" title="裁剪">&#xf006b;</div>
           <div class="icon iconfont" title="上传">&#xf0048;</div>
         </div>
+        <div class="footer">
+          <button class="btn">裁剪</button>
+          <button class="btn select">选择</button>
+          <input type="file" style="display:none;">
+        </div>
       </div>
     </script>
     <script src="../static/js/jquery-1.11.3.min.js"></script>
@@ -46,9 +51,8 @@
     <script src="../static/js/jquery.mousewheel.min.js"></script>
     <script src="../static/js/jquery.cropping-1.0.0.js"></script>
     <script>
-      $.cropping();
       $("#cropping-btn").click(function() {
-          $.cropping();
+          $.cropping({width: 800, height: 800});
       });
     </script>
   </body>
