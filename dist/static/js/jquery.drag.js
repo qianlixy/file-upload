@@ -1,5 +1,4 @@
-;
-(function($) {
+;(function($) {
     $.fn.drag = function(settings) {
         return this.each(function() {
 

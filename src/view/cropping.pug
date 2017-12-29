@@ -35,7 +35,7 @@ html
                     div.icon.iconfont(title="裁剪") &#xf006b;
                     div.icon.iconfont(title="上传") &#xf0048;
                 div.footer
-                    button.btn 裁剪
+                    button.btn.cropping 裁剪
                     button.btn.select 选择
                     input(type="file", style="display:none;")
         script(src="../static/js/jquery-1.11.3.min.js")
@@ -44,8 +44,10 @@ html
         script(src="../static/js/jquery.zoom.js")
         script(src="../static/js/jquery.mousewheel.min.js")
         script(src="../static/js/jquery.cropping-1.0.0.js")
+        script(src="../static/js/jquery.util.js")
         
         script.
             $("#cropping-btn").click(function() {
-                $.cropping({width: 800, height: 800});
+                $.cropping({width:1920,height:772});
+                //- $.cropping();
             });

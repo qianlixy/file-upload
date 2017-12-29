@@ -38,7 +38,7 @@
           <div class="icon iconfont" title="上传">&#xf0048;</div>
         </div>
         <div class="footer">
-          <button class="btn">裁剪</button>
+          <button class="btn cropping">裁剪</button>
           <button class="btn select">选择</button>
           <input type="file" style="display:none;">
         </div>
@@ -50,9 +50,11 @@
     <script src="../static/js/jquery.zoom.js"></script>
     <script src="../static/js/jquery.mousewheel.min.js"></script>
     <script src="../static/js/jquery.cropping-1.0.0.js"></script>
+    <script src="../static/js/jquery.util.js"></script>
     <script>
       $("#cropping-btn").click(function() {
-          $.cropping({width: 800, height: 800});
+          $.cropping({width:1920,height:772});
+          //- $.cropping();
       });
     </script>
   </body>
