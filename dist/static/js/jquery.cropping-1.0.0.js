@@ -46,10 +46,11 @@
             defaultRatio = DEFAULT.width / DEFAULT.height,
             ratio = width / height,
             actualW = width < DEFAULT.width ? width : (defaultRatio >= ratio ? DEFAULT.height * ratio : DEFAULT.width),
-            actualH = height < DEFAULT.height ? height : (defaultRatio >= ratio ? DEFAULT.height : DEFAULT.width / ratio);
+            actualH = height < DEFAULT.height ? height : (defaultRatio >= ratio ? DEFAULT.height : DEFAULT.width / ratio),
+            actualRatio = actualW / actualH;
 
-        actualW = parseInt(actualW);
-        actualH = parseInt(actualH);
+        actualW = parseInt(actualRatio > ratio ? actualH * ratio : actualW);
+        actualH = parseInt(actualRatio < ratio ? actualW / ratio : actualH);
 
         this.find(".cover.top, .cover.bottom").css('height', (boxH - actualH) / 2);
         this.find(".cover.left, .cover.right").css({'width': (boxW - actualW) / 2, 'height': actualH});
